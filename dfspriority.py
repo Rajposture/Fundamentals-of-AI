@@ -11,19 +11,21 @@ for i in range(n):
 
 start = input("Enter start node: ")
 
-visited = []
+visited = set()
 heap = []
+count = 0
 
-heapq.heappush(heap, start)
-visited.append(start)
+heapq.heappush(heap, (-count, start))
+visited.add(start)
 
 while heap:
-    curr = heapq.heappop(heap)
+    _, curr = heapq.heappop(heap)
     print(curr, end=" ")
 
-    for nb in graph[curr]:
+    for nb in reversed(graph[curr]):
         if nb not in visited:
-            visited.append(nb)
-            heapq.heappush(heap, nb)
+            count += 1
+            visited.add(nb)
+            heapq.heappush(heap, (-count, nb))
 
 print("\nDFS traversal done")

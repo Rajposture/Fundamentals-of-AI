@@ -1,30 +1,29 @@
-# Exp 3 Breadth first search using heap and user input
-
-from collections import deque
+import heapq
 
 graph = {}
 
 n = int(input("Enter number of nodes: "))
+
 for i in range(n):
     node = input("Enter node name: ")
-    neighbors = input(f"Enter neighbors of {node} separated by space: ").split()
+    neighbors = input("Enter neighbors separated by space: ").split()
     graph[node] = neighbors
 
 start = input("Enter start node: ")
 
 visited = []
-q = deque()
+heap = []
 
-q.append(start)
+heapq.heappush(heap, start)
 visited.append(start)
 
-while q:
-    curr = q.popleft()
+while heap:
+    curr = heapq.heappop(heap)
     print(curr, end=" ")
 
     for nb in graph[curr]:
         if nb not in visited:
             visited.append(nb)
-            q.append(nb)
+            heapq.heappush(heap, nb)
 
-print("\nBFS traversal done")
+print("\nTraversal done")
